@@ -358,23 +358,32 @@ class AccountingController extends Controller
     // General Ledger
     public function generalLedger()
     {
-        $accounts = \App\Models\Account::orderBy('code')->get();
-        $journalEntries = \App\Models\JournalEntry::with(['account'])
-            ->orderBy('date', 'desc')
+        $accounts = \App\Models\ChartOfAccount::orderBy('account_code')->get();
+        
+        // Get journal entry lines with their related data
+        $journalEntryLines = \App\Models\JournalEntryLine::with(['journalEntry.financialPeriod', 'journalEntry.createdBy', 'account'])
             ->orderBy('created_at', 'desc')
             ->paginate(50);
         
-        return view('accounting.general-ledger.index', compact('accounts', 'journalEntries'));
+        return view('accounting.general-ledger.index', compact('accounts', 'journalEntryLines'));
     }
 
-    public function generalLedgerAccount(\App\Models\Account $account)
+    public function generalLedgerAccount(\App\Models\ChartOfAccount $account)
     {
-        $journalEntries = \App\Models\JournalEntry::where('account_id', $account->id)
-            ->orderBy('date', 'desc')
+        $journalEntries = \App\Models\JournalEntry::whereHas('lines', function($query) use ($account) {
+                $query->where('account_id', $account->id);
+            })
+            ->with(['financialPeriod', 'createdBy', 'lines' => function($query) use ($account) {
+                $query->where('account_id', $account->id);
+            }])
+            ->orderBy('entry_date', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate(50);
         
-        $balance = $journalEntries->sum('debit') - $journalEntries->sum('credit');
+        // Calculate balance from journal entry lines for this account
+        $debitTotal = \App\Models\JournalEntryLine::where('account_id', $account->id)->sum('debit');
+        $creditTotal = \App\Models\JournalEntryLine::where('account_id', $account->id)->sum('credit');
+        $balance = $debitTotal - $creditTotal;
         
         return view('accounting.general-ledger.account', compact('account', 'journalEntries', 'balance'));
     }

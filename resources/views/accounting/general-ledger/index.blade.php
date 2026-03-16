@@ -133,39 +133,39 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($journalEntries as $entry)
+                                @foreach($journalEntryLines as $line)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $entry->date->format('M d, Y') }}</div>
-                                            <div class="text-xs text-gray-500">{{ $entry->date->format('H:i') }}</div>
+                                            <div class="text-sm text-gray-900">{{ $line->journalEntry->entry_date->format('M d, Y') }}</div>
+                                            <div class="text-xs text-gray-500">{{ $line->journalEntry->entry_date->format('H:i') }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $entry->account->name }}</div>
-                                            <div class="text-xs text-gray-500">{{ $entry->account->code }}</div>
+                                            <div class="text-sm text-gray-900">{{ $line->account->name }}</div>
+                                            <div class="text-xs text-gray-500">{{ $line->account->account_code }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $entry->description }}</div>
+                                            <div class="text-sm text-gray-900">{{ $line->journalEntry->description }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $entry->reference_number ?? 'N/A' }}</div>
+                                            <div class="text-sm text-gray-900">{{ $line->journalEntry->reference ?? 'N/A' }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($entry->debit > 0)
-                                                <div class="text-sm font-medium text-red-600">${{ number_format($entry->debit, 2) }}</div>
+                                            @if($line->debit > 0)
+                                                <div class="text-sm font-medium text-red-600">${{ number_format($line->debit, 2) }}</div>
                                             @else
                                                 <div class="text-sm text-gray-400">-</div>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($entry->credit > 0)
-                                                <div class="text-sm font-medium text-green-600">${{ number_format($entry->credit, 2) }}</div>
+                                            @if($line->credit > 0)
+                                                <div class="text-sm font-medium text-green-600">${{ number_format($line->credit, 2) }}</div>
                                             @else
                                                 <div class="text-sm text-gray-400">-</div>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900">
-                                                ${{ number_format($entry->debit - $entry->credit, 2) }}
+                                                ${{ number_format($line->debit - $line->credit, 2) }}
                                             </div>
                                         </td>
                                     </tr>
@@ -176,7 +176,7 @@
 
                     <!-- Pagination -->
                     <div class="mt-6">
-                        {{ $journalEntries->links() }}
+                        {{ $journalEntryLines->links() }}
                     </div>
                 @else
                     <div class="text-center py-12">
@@ -210,7 +210,7 @@
                                         <i class="fas fa-folder text-blue-600"></i>
                                     </div>
                                     <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">{{ $account->code }} - {{ $account->name }}</p>
+                                        <p class="text-sm font-medium text-gray-900">{{ $account->account_code }} - {{ $account->name }}</p>
                                         <p class="text-xs text-gray-500">{{ ucfirst($account->type) }}</p>
                                     </div>
                                 </div>
