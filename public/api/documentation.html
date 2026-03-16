@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitality College API Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                <i class="fas fa-code text-blue-600 mr-3"></i>
+                Hospitality College API
+            </h1>
+            <p class="text-gray-600">RESTful API for mobile and third-party integrations</p>
+        </div>
+
+        <!-- Authentication -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-key text-green-600 mr-2"></i>
+                Authentication
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Login</h3>
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <p class="text-sm text-gray-600 mb-2"><strong>POST</strong> /api/auth/login</p>
+                    <div class="text-sm">
+                        <p class="mb-2"><strong>Request Body:</strong></p>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded overflow-x-auto text-xs">
+{
+    "email": "student@hospitality.edu",
+    "password": "password123",
+    "device_name": "Mobile App"
+}</pre>
+                        <p class="mt-2 mb-2"><strong>Response:</strong></p>
+                        <pre class="bg-gray-800 text-blue-400 p-3 rounded overflow-x-auto text-xs">
+{
+    "user": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "student@hospitality.edu",
+        "roles": ["student"],
+        "permissions": ["dashboard.view", "academic.view"]
+    },
+    "token": "1|abc123token..."
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Endpoints -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-graduation-cap text-purple-600 mr-2"></i>
+                Student Endpoints
+            </h2>
+            
+            <div class="space-y-4">
+                <!-- Profile -->
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800">GET /api/student/profile</h3>
+                    <p class="text-sm text-gray-600">Get student profile information</p>
+                    <div class="bg-gray-100 rounded p-3 mt-2">
+                        <p class="text-xs"><strong>Headers:</strong> Authorization: Bearer {token}</p>
+                    </div>
+                </div>
+
+                <!-- Grades -->
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800">GET /api/student/grades</h3>
+                    <p class="text-sm text-gray-600">Get student grades and academic performance</p>
+                    <div class="bg-gray-100 rounded p-3 mt-2">
+                        <p class="text-xs"><strong>Headers:</strong> Authorization: Bearer {token}</p>
+                    </div>
+                </div>
+
+                <!-- Attendance -->
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800">GET /api/student/attendance</h3>
+                    <p class="text-sm text-gray-600">Get student attendance records</p>
+                    <div class="bg-gray-100 rounded p-3 mt-2">
+                        <p class="text-xs"><strong>Headers:</strong> Authorization: Bearer {token}</p>
+                    </div>
+                </div>
+
+                <!-- Fees -->
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800">GET /api/student/fees</h3>
+                    <p class="text-sm text-gray-600">Get fee information and payment status</p>
+                    <div class="bg-gray-100 rounded p-3 mt-2">
+                        <p class="text-xs"><strong>Headers:</strong> Authorization: Bearer {token}</p>
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800">GET /api/student/schedule</h3>
+                    <p class="text-sm text-gray-600">Get class schedule and timetable</p>
+                    <div class="bg-gray-100 rounded p-3 mt-2">
+                        <p class="text-xs"><strong>Headers:</strong> Authorization: Bearer {token}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-rocket text-orange-600 mr-2"></i>
+                Quick Start Guide
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-blue-800 mb-2">1. Get Token</h3>
+                    <p class="text-sm text-blue-600">Login to get your API token</p>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-green-800 mb-2">2. Make Requests</h3>
+                    <p class="text-sm text-green-600">Include token in Authorization header</p>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-purple-800 mb-2">3. Access Data</h3>
+                    <p class="text-sm text-purple-600">Use endpoints to get student data</p>
+                </div>
+                <div class="bg-orange-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-orange-800 mb-2">4. Build App</h3>
+                    <p class="text-sm text-orange-600">Create mobile app or integration</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Codes -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+                Response Codes
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-green-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-green-800">200</h3>
+                    <p class="text-sm text-green-600">Success - Data returned</p>
+                </div>
+                <div class="bg-yellow-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-yellow-800">401</h3>
+                    <p class="text-sm text-yellow-600">Unauthorized - Invalid token</p>
+                </div>
+                <div class="bg-red-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-red-800">403</h3>
+                    <p class="text-sm text-red-600">Forbidden - No permission</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800">404</h3>
+                    <p class="text-sm text-gray-600">Not Found - Resource missing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <p class="text-gray-600">
+                <i class="fas fa-info-circle mr-2"></i>
+                For more information, contact the system administrator
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                API Version: 1.0 | Last Updated: {{ now()->format('M d, Y') }}
+            </p>
+        </div>
+    </div>
+</body>
+</html>
